@@ -11,24 +11,58 @@ import XCTest
 
 class xctext_sampleTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    let sampleLogic = SampleLogic()
+    
+    override func setUp() {}
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    override func tearDown() {}
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    // 税込価格計算のテストコード
+    func testTaxIncludedPrice() {
+        
+        // 税込価格計算結果
+        let price = sampleLogic.taxIncludedPrice(price: 100)
+        
+        // 期待値と等しいことを確認
+        XCTAssertEqual(price, 108) // Success!!
+        XCTAssertEqual(price, 100) // Failure...
+        
+        // 期待値と等しくないことを確認
+        XCTAssertNotEqual(price, 108) // Failure...
+        XCTAssertNotEqual(price, 100) // Success!!
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    // iPhone11 Pro の背面パーツに存在するか確認メソッドのテストコード
+    func testIPhone11ProBackParts() {
+        
+        // パーツはカメラ
+        let trueParts = sampleLogic.iPhone11ProBackParts(parts: "カメラ")
+        // パーツはタピオカ
+        let falseParts = sampleLogic.iPhone11ProBackParts(parts: "タピオカ")
+        
+        // 期待値が真だと確認するAPI
+        XCTAssertTrue(trueParts) // Success!!
+        XCTAssertTrue(falseParts) // Failure...
+        
+        // 期待値が偽だと確認するAPI
+        XCTAssertFalse(trueParts) // Failure...
+        XCTAssertFalse(falseParts) // Success!!
     }
-
+    
+    // iPhone11 Pro に存在する色があれば画像を返すメソッドのテストコード
+    func testIPhone11ProImage() {
+        
+        // MidnightGreenのiPhone画像
+        let midnightGreenImage = sampleLogic.iPhone11ProImage(color: "midnight-green")
+        // RainbowのiPhone画像
+        let rainbowImage = sampleLogic.iPhone11ProImage(color: "rainbow")
+        
+        // 期待値がNilなことを確認するAPI
+        XCTAssertNil(midnightGreenImage) // Failure...
+        XCTAssertNil(rainbowImage) // Success!!
+        
+        // 期待値がNilでないことを確認するAPI
+        XCTAssertNotNil(midnightGreenImage) // Success!!
+        XCTAssertNotNil(rainbowImage) // Failure...
+    }
 }
